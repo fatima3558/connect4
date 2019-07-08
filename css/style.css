@@ -7,6 +7,14 @@ div {
 	text-align: center;
 }
 
+h1 {
+	font-family: "Monaco", monospace;
+}
+
+h3, h4 {
+	font-family: "Helvetica", sans-serif;
+}
+
 .container {
 	display: inline-grid;
 	width: 100%;
@@ -16,15 +24,56 @@ div {
 		"player1" "game" "player2";
 }
 
-.one {
+.player {
+	text-align: center;
+}
+
+.first {
 	grid-area: "player1";
 }
 
-.two {
+.second {
 	grid-area: "player2";
+}
+
+.tile1, .tile2 {
+	border-radius: 100%;
+	width: 100px;
+	height: 100px;
+	margin: 20px auto;
+}
+
+.tile1 {
+	background-color: red;
+}
+
+.tile2 {
+	background-color: yellow;
 }
 
 .game {
 	grid-area: "game";
-
+	height: 60vh;
+	width: 60vh;
+	text-align: center;
+	margin: 20px auto;
+	display: inline-grid;
+	grid-template-rows: repeat(6, 1fr);
+	grid-template-columns: repeat(7, 1fr);
 }
+
+.space {
+	border: 1px solid white;
+}
+
+
+
+
+
+
+
+
+
+
+
+

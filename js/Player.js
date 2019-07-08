@@ -1,9 +1,9 @@
 console.log("Player Class");
 
 class Player {
-	constructor() {
-		const name = null
-		const tileColor =  null
+	constructor(name) {
+		this.name = name
+		this.tileColor = null
 	}
 
 	placeTile() {

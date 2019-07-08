@@ -37,4 +37,10 @@ const game = {
 
 game.startPlayers()
 
+//Event listeners
+$(".game").on('click', (e) => {
+	const columnClicked = $(e.target).attr('class')
+	console.log(columnClicked);
+})
+
 

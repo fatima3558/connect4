@@ -3,6 +3,28 @@ body {
 	color: white;
 }
 
-.container {
+div {
 	text-align: center;
+}
+
+.container {
+	display: inline-grid;
+	width: 100%;
+	grid-template-rows: 1fr;
+	grid-template-columns: 200px auto 200px;
+	grid-template-areas: 
+		"player1" "game" "player2";
+}
+
+.one {
+	grid-area: "player1";
+}
+
+.two {
+	grid-area: "player2";
+}
+
+.game {
+	grid-area: "game";
+
 }

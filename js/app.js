@@ -62,7 +62,7 @@ const game = {
 			$(".second").css("border", `2px solid black`);
 			this.playerTwoTurn(emptySpace);
 		}
-		
+
 	},
 
 	playerOneTurn(emptySpace) {
@@ -89,22 +89,19 @@ const game = {
 		//reset data key value to player 1's color
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
-		// this.checkPlayerTwoWin();
+		this.checkPlayerTwoWin();
 	},
 
 	checkPlayerOneWin() {
-		//check for vertical win
-		const verticalWin = [];
+		const arrayToCheck = [];
 		//for every array in the object
 		for( let key in this.columns) {
 			// for every item in each array
 			for( let i = 0; i < this.columns[key].length; i++) {
 				if( this.columns[key][i].attr("data") === this.player1.tileColor) {
-					console.log(this.columns[key][i]);
-					console.log();
-					verticalWin.push(this.columns[key][i])
+					// console.log(this.columns[key][i]);
+					arrayToCheck.push(this.columns[key][i])
 				}
-				// console.log(verticalWin);
 
 
 				//in comparison to every other item in the array
@@ -128,10 +125,25 @@ const game = {
 			}
 
 		}
+		console.log(arrayToCheck);
 
 	},
 
 	checkPlayerTwoWin() {
+		const arrayToCheck = [];
+		//for every array in the object
+		for( let key in this.columns) {
+			// for every item in each array
+			for( let i = 0; i < this.columns[key].length; i++) {
+				if( this.columns[key][i].attr("data") === this.player2.tileColor) {
+					// console.log(this.columns[key][i]);
+					arrayToCheck.push(this.columns[key][i])
+				}
+
+			}
+
+		}
+		console.log(arrayToCheck);
 
 	}
 

@@ -3,16 +3,15 @@ console.log("connect 4");
 const game = {
 	player1: null,
 	player2: null,
-	columns: [
-		[$('#a1'), $('#a2'), $('#a3'), $('#a4'), $('#a5'), $('#a6')],
-		[$('#b1'), $('#b2'), $('#b3'), $('#b4'), $('#b5'), $('#b6')],
-		[$('#c1'), $('#c2'), $('#c3'), $('#c4'), $('#c5'), $('#c6')],
-		[$('#d1'), $('#d2'), $('#d3'), $('#d4'), $('#d5'), $('#d6')],
-		[$('#e1'), $('#e2'), $('#e3'), $('#e4'), $('#e5'), $('#e6')],
-		[$('#f1'), $('#f2'), $('#f3'), $('#f4'), $('#f5'), $('#f6')],
-		[$('#g1'), $('#g2'), $('#g3'), $('#g4'), $('#g5'), $('#g6')]
-	],
-	// column
+	columns: {
+		a: [$('#a1'), $('#a2'), $('#a3'), $('#a4'), $('#a5'), $('#a6')],
+		b: [$('#b1'), $('#b2'), $('#b3'), $('#b4'), $('#b5'), $('#b6')],
+		c: [$('#c1'), $('#c2'), $('#c3'), $('#c4'), $('#c5'), $('#c6')],
+		d: [$('#d1'), $('#d2'), $('#d3'), $('#d4'), $('#d5'), $('#d6')],
+		e: [$('#e1'), $('#e2'), $('#e3'), $('#e4'), $('#e5'), $('#e6')],
+		f: [$('#f1'), $('#f2'), $('#f3'), $('#f4'), $('#f5'), $('#f6')],
+		g: [$('#g1'), $('#g2'), $('#g3'), $('#g4'), $('#g5'), $('#g6')]
+	},
 
 	startPlayers() {
 	//set player names
@@ -26,21 +25,39 @@ const game = {
 		// this.player2.name = prompt("Player 2, what's your name?");
 		// $(".second h4").text(this.player2.name);
 		// console.log(this.player2.name);
+
 	//--------------set tile colors ---------- for later!
 	},
 
 	takeTurns() {
-		this.player1.placeTile();
-	}
+		this.player1.findEmptySpace();
+
+		this.player2.placeTile();
+	},
+
+	findEmptySpace(columnClicked) {
+		console.log(columnClicked);
+		for( let i = 0; i < this.columns[columnClicked].length; i++) {
+			//find the first one that doesn't have a color
+			if( this.columns[columnClicked][i].attr("data") !== "black") {
+				console.log(this.columns[columnClicked][i]);
+			}
+
+		}
+
+	},
 
 }
 
-game.startPlayers()
+// game.findEmptySpace();
 
 //Event listeners
 $(".game").on('click', (e) => {
-	const columnClicked = $(e.target).attr('class')
-	console.log(columnClicked);
+	const columnClicked = $(e.target).attr('class');
+	// console.log(e.target);
+	game.findEmptySpace(columnClicked);
+	return columnClicked;
+	// console.log(columnClicked);
 })
 
 

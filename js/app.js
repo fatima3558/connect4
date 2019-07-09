@@ -35,17 +35,20 @@ const game = {
 		this.player2.placeTile();
 	},
 
-	findEmptySpace(columnClicked) {
+	findEmptySpaces(columnClicked) {
 		console.log(columnClicked);
 		for( let i = 0; i < this.columns[columnClicked].length; i++) {
-			//find the first one that doesn't have a color
-			if( this.columns[columnClicked][i].attr("data") !== "black") {
-				console.log(this.columns[columnClicked][i]);
+			// find the first one that doesn't have data "black"
+			if( this.columns[columnClicked][i].attr("data") === "black") {
+				const empty = this.columns[columnClicked][i];
+				console.log(empty);
+				return empty;
 			}
 
 		}
 
 	},
+
 
 }
 
@@ -55,7 +58,7 @@ const game = {
 $(".game").on('click', (e) => {
 	const columnClicked = $(e.target).attr('class');
 	// console.log(e.target);
-	game.findEmptySpace(columnClicked);
+	game.findEmptySpaces(columnClicked);
 	return columnClicked;
 	// console.log(columnClicked);
 })

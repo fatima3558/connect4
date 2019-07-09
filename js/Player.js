@@ -5,9 +5,4 @@ class Player {
 		this.name = name
 		this.tileColor = null
 	}
-
-	// placeTile(e) {
-	// 	game.
-	// }
-
 }

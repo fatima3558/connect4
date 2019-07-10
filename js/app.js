@@ -37,7 +37,7 @@ const game = {
 	},
 
 	findEmptySpaces(columnClicked) {
-		console.log(columnClicked);
+		// console.log(columnClicked);
 		for( let i = 0; i < this.columns[columnClicked].length; i++) {
 			// find the first one that doesn't have data "black"
 			if( this.columns[columnClicked][i].attr("data") === "black") {
@@ -106,16 +106,20 @@ const game = {
 			}
 
 		}
-		console.log(arrayToCheck);
+		// console.log(arrayToCheck);
 //------------------------------------------------------------
 		//in order to check rows and columns, split div id strings into array of strings, one string being a letter for the column, the other string being a number for the row
 		this.player1.coord = [];
 		for( let i = 0; i < arrayToCheck.length; i++) {
 			this.player1.coord.push($(arrayToCheck[i]).attr("id").split(""));
 		}
-		console.log(this.player1.coord);
-		// this.checkVertical(this.player1.coord);
-
+		// console.log(this.player1.coord);
+		if( this.player1.coord.length >= 4) {
+			this.player1.checkVertical(this.player1.coord);
+			// this.player1.checkHorizontal(this.player1.coord);
+			// this.player1.checkDiagonalUp(this.player1.coord);
+			// this.player1.checkDiagonalDown(this.player1.coord);
+		}
 	},
 
 	createPlayerTwoCoord() { //identical to createPlayerOneCoord()
@@ -129,14 +133,20 @@ const game = {
 			}
 
 		}
-		console.log(arrayToCheck);
+		// console.log(arrayToCheck);
 
 		this.player2.coord = [];
 		for( let i = 0; i < arrayToCheck.length; i++) {
 			this.player2.coord.push($(arrayToCheck[i]).attr("id").split(""));
 		}
-		console.log(this.player2.coord);
-		// this.checkVertical(player2.coord);
+		// console.log(this.player2.coord);
+		if( this.player2.coord.length >= 4) {
+			this.player2.checkVertical(this.player2.coord);
+			// this.player2.checkHorizontal(this.player2.coord);
+			// this.player2.checkDiagonalUp(this.player2.coord);
+			// this.player2.checkDiagonalDown(this.player2.coord);
+		}
+
 	},
 
 }

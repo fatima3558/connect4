@@ -4,6 +4,8 @@ const game = {
 	player1: null,
 	player2: null,
 	turnsTaken: 0,
+	playerOneCoord: [],
+	playerTwoCoord: [],
 	columns: {
 		a: [$('#a1'), $('#a2'), $('#a3'), $('#a4'), $('#a5'), $('#a6')],
 		b: [$('#b1'), $('#b2'), $('#b3'), $('#b4'), $('#b5'), $('#b6')],
@@ -76,7 +78,7 @@ const game = {
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		// console.log();
 		this.turnsTaken++;
-		this.checkPlayerOneWin();
+		this.createPlayerOneCoord();
 	},
 
 	playerTwoTurn(emptySpace) {
@@ -89,10 +91,10 @@ const game = {
 		//reset data key value to player 1's color
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
-		this.checkPlayerTwoWin();
+		this.createPlayerTwoCoord();
 	},
 
-	checkPlayerOneWin() {
+	createPlayerOneCoord() {
 		const arrayToCheck = [];
 		//for every array in the object
 		for( let key in this.columns) {
@@ -103,33 +105,21 @@ const game = {
 					arrayToCheck.push(this.columns[key][i])
 				}
 
-
-				//in comparison to every other item in the array
-				// for( let j = 0; i < this.columns[key].length - 1; i++) {
-				// 	if i === j {
-				// 		continue;
-				// 	}
-				// 	else if ($(this.columns[key][i]).attr("data") === `${}`
-				// }
-
-				// console.log(this.columns[key][i]);
-				// const $thisColor = $(this.columns[key][i]).attr("data");
-				// const $nextColor = $(this.columns[key][i+1]).attr("data");
-				// if( $thisColor === $nextColor) {
-				// 	console.log($(thisColor));
-				// }
-				// else {
-				// 	console.log("it did the comparison! not the same");
-				// }
-				
 			}
 
 		}
 		console.log(arrayToCheck);
+//------------------------------------------------------------
+		//in order to check rows and columns, split div id strings into array of strings, one string being a letter for the column, the other string being a number for the row
+		this.playerOneCoord = [];
+		for( let i = 0; i < arrayToCheck.length; i++) {
+			this.playerOneCoord.push($(arrayToCheck[i]).attr("id").split(""));
+		}
+		console.log(this.playerOneCoord);
 
 	},
 
-	checkPlayerTwoWin() {
+	createPlayerTwoCoord() {
 		const arrayToCheck = [];
 		//for every array in the object
 		for( let key in this.columns) {
@@ -144,8 +134,26 @@ const game = {
 
 		}
 		console.log(arrayToCheck);
+		
+		this.playerTwoCoord = [];
+		for( let i = 0; i < arrayToCheck.length; i++) {
+			this.playerTwoCoord.push($(arrayToCheck[i]).attr("id").split(""));
+		}
+		console.log(this.playerTwoCoord);
+	},
 
-	}
+	//check vertical
+		// if(arrayOfCoordinates.length >=2) {
+		// 	for( let i = 0; i < arrayOfCoordinates.length - 1; i++){
+		// 	const verticalMatches = [];
+		// 		if( (arrayOfCoordinates[i][0] === arrayOfCoordinates[i+1][0])); 
+		// 		{
+		// 			verticalMatches.push(arrayOfCoordinates[i])
+		// 		}
+		// 	console.log(verticalMatches);
+		// 	}
+			
+		// }
 
 }
 

@@ -84,7 +84,10 @@ const game = {
 		//reset data key value to player 1's color
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
-		this.checkVertical();
+		// this.checkVertical();
+		this.checkHorizontal();
+		// this.checkDiagonalUp();
+		// this.checkDiagonalDown();
 	},
 
 	playerTwoTurn(emptySpace) {
@@ -97,76 +100,115 @@ const game = {
 		//reset data key value to player 1's color
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
-		this.checkVertical();
+		// this.checkVertical();
+		this.checkHorizontal();
+		// this.checkDiagonalUp();
+		// this.checkDiagonalDown();
 	},
 
-	checkVertical() {
-		// starting from the 4th item in the array of divs,
-		for( let i = 3; i < this.allDivs.length - 3; i++) {
-			// check any 4 consecutive divs
-			let tempArray = [];
-			//fist, make sure the first two are in the same column
-			//if they are, push them into tempArray
-			if( $(this.allDivs[i-3]).attr("class") === $(this.allDivs[i-2]).attr("class")) {
-				tempArray.push($(this.allDivs[i-3]).attr("data"));	
-				tempArray.push($(this.allDivs[i-2]).attr("data"));
+	// checkVertical() {
+	// 	// starting from the 4th item in the array of divs,
+	// 	for( let i = 3; i < this.allDivs.length - 3; i++) {
+	// 		// check any 4 consecutive divs
+	// 		let tempArray = [];
+	// 		//fist, make sure the first two are in the same column
+	// 		//if they are, push them into tempArray
+	// 		if( $(this.allDivs[i-3]).attr("class") === $(this.allDivs[i-2]).attr("class")) {
+	// 			tempArray.push($(this.allDivs[i-3]).attr("data"));	
+	// 			tempArray.push($(this.allDivs[i-2]).attr("data"));
 
-				//if they are, also check if the i-2th and i-1th are in the same column
-				if( $(this.allDivs[i-2]).attr("class") === $(this.allDivs[i-1]).attr("class")) {
-					//if they are, push the i-1th one
-					tempArray.push($(this.allDivs[i-1]).attr("data"));
-					//if they are, also check if the i-1th and ith are in the same column
-					if( $(this.allDivs[i-1]).attr("class") === $(this.allDivs[i]).attr("class")) {
-						tempArray.push($(this.allDivs[i]).attr("data"));
-					}
-					//if the i-1th and ith don't match, clear the array and add one to i
-					else {
-						tempArray = [];
-						continue;
-					}
-				} 
-				//if the i-2th and i-1th don't match, clear the array and add 1 to i
-				else {
-					tempArray = [];
-					continue;
-				}
-			} 
-			//if the i-3th and i-2th don't match, clear array and add 1 to i
-			else {
-				tempArray = []
-				continue;
-			}
+	// 			//if they are, also check if the i-2th and i-1th are in the same column
+	// 			if( $(this.allDivs[i-2]).attr("class") === $(this.allDivs[i-1]).attr("class")) {
+	// 				//if they are, push the i-1th one
+	// 				tempArray.push($(this.allDivs[i-1]).attr("data"));
+	// 				//if they are, also check if the i-1th and ith are in the same column
+	// 				if( $(this.allDivs[i-1]).attr("class") === $(this.allDivs[i]).attr("class")) {
+	// 					tempArray.push($(this.allDivs[i]).attr("data"));
+	// 				}
+	// 				//if the i-1th and ith don't match, clear the array and add one to i
+	// 				else {
+	// 					tempArray = [];
+	// 					continue;
+	// 				}
+	// 			} 
+	// 			//if the i-2th and i-1th don't match, clear the array and add 1 to i
+	// 			else {
+	// 				tempArray = [];
+	// 				continue;
+	// 			}
+	// 		} 
+	// 		//if the i-3th and i-2th don't match, clear array and add 1 to i
+	// 		else {
+	// 			tempArray = []
+	// 			continue;
+	// 		}
 			
-			//if a group of 4 gets through ALL OF THAT, check the colors
-			console.log(tempArray);		
-				if( 
+	// 		//if a group of 4 gets through ALL OF THAT, check the colors
+	// 		console.log(tempArray);		
+	// 			if( 
+	// 				tempArray[0] === this.player1.tileColor &&
+	// 				tempArray[1] === this.player1.tileColor &&
+	// 				tempArray[2] === this.player1.tileColor && 
+	// 				tempArray[3] === this.player1.tileColor 
+	// 			) {
+	// 				console.log("player1 won");
+	// 				// this.playerWon(this.player1);
+	// 				break;
+	// 			}
+	// 			else if (
+	// 				tempArray[0] === this.player2.tileColor &&
+	// 				tempArray[1] === this.player2.tileColor &&
+	// 				tempArray[2] === this.player2.tileColor && 
+	// 				tempArray[3] === this.player2.tileColor 
+	// 			) {
+	// 				console.log("player2 won");
+	// 				// this.playerWon(this.player2);
+	// 				break;
+	// 			}
+
+	// 	}
+
+	// },
+
+	checkHorizontal() {
+		for( let i = 0; i < 24; i++) {
+			//create a temp array to hold 4 divs from allDivs that are 6 divs apart
+			let tempArray = [];
+			tempArray.push($(this.allDivs[i]).attr("data"));
+			tempArray.push($(this.allDivs[i+6]).attr("data"));
+			tempArray.push($(this.allDivs[i+12]).attr("data"));
+			tempArray.push($(this.allDivs[i+18]).attr("data"));
+
+			console.log(tempArray);
+
+			if( 
 					tempArray[0] === this.player1.tileColor &&
 					tempArray[1] === this.player1.tileColor &&
 					tempArray[2] === this.player1.tileColor && 
 					tempArray[3] === this.player1.tileColor 
-				) 
-				{
+				) {
 					console.log("player1 won");
 					// this.playerWon(this.player1);
 					break;
 				}
-				else if (
+			else if (
 					tempArray[0] === this.player2.tileColor &&
 					tempArray[1] === this.player2.tileColor &&
 					tempArray[2] === this.player2.tileColor && 
 					tempArray[3] === this.player2.tileColor 
-				)
-				{
+				) {
 					console.log("player2 won");
 					// this.playerWon(this.player2);
 					break;
 				}
 
+			else {
+				tempArray = [];
+				continue;
+			}
 		}
 
 	}
-
-	
 
 }
 

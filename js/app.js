@@ -4,8 +4,6 @@ const game = {
 	player1: null,
 	player2: null,
 	turnsTaken: 0,
-	playerOneCoord: [],
-	playerTwoCoord: [],
 	columns: {
 		a: [$('#a1'), $('#a2'), $('#a3'), $('#a4'), $('#a5'), $('#a6')],
 		b: [$('#b1'), $('#b2'), $('#b3'), $('#b4'), $('#b5'), $('#b6')],
@@ -111,22 +109,20 @@ const game = {
 		console.log(arrayToCheck);
 //------------------------------------------------------------
 		//in order to check rows and columns, split div id strings into array of strings, one string being a letter for the column, the other string being a number for the row
-		this.playerOneCoord = [];
+		this.player1.coord = [];
 		for( let i = 0; i < arrayToCheck.length; i++) {
-			this.playerOneCoord.push($(arrayToCheck[i]).attr("id").split(""));
+			this.player1.coord.push($(arrayToCheck[i]).attr("id").split(""));
 		}
-		console.log(this.playerOneCoord);
+		console.log(this.player1.coord);
+		// this.checkVertical(this.player1.coord);
 
 	},
 
-	createPlayerTwoCoord() {
+	createPlayerTwoCoord() { //identical to createPlayerOneCoord()
 		const arrayToCheck = [];
-		//for every array in the object
 		for( let key in this.columns) {
-			// for every item in each array
 			for( let i = 0; i < this.columns[key].length; i++) {
 				if( this.columns[key][i].attr("data") === this.player2.tileColor) {
-					// console.log(this.columns[key][i]);
 					arrayToCheck.push(this.columns[key][i])
 				}
 
@@ -134,26 +130,14 @@ const game = {
 
 		}
 		console.log(arrayToCheck);
-		
-		this.playerTwoCoord = [];
-		for( let i = 0; i < arrayToCheck.length; i++) {
-			this.playerTwoCoord.push($(arrayToCheck[i]).attr("id").split(""));
-		}
-		console.log(this.playerTwoCoord);
-	},
 
-	//check vertical
-		// if(arrayOfCoordinates.length >=2) {
-		// 	for( let i = 0; i < arrayOfCoordinates.length - 1; i++){
-		// 	const verticalMatches = [];
-		// 		if( (arrayOfCoordinates[i][0] === arrayOfCoordinates[i+1][0])); 
-		// 		{
-		// 			verticalMatches.push(arrayOfCoordinates[i])
-		// 		}
-		// 	console.log(verticalMatches);
-		// 	}
-			
-		// }
+		this.player2.coord = [];
+		for( let i = 0; i < arrayToCheck.length; i++) {
+			this.player2.coord.push($(arrayToCheck[i]).attr("id").split(""));
+		}
+		console.log(this.player2.coord);
+		// this.checkVertical(player2.coord);
+	},
 
 }
 

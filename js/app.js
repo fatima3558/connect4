@@ -5,15 +5,24 @@ const game = {
 	player2: null,
 	turnsTaken: 0,
 	columns: {
-		a: [$('#a1'), $('#a2'), $('#a3'), $('#a4'), $('#a5'), $('#a6')],
-		b: [$('#b1'), $('#b2'), $('#b3'), $('#b4'), $('#b5'), $('#b6')],
-		c: [$('#c1'), $('#c2'), $('#c3'), $('#c4'), $('#c5'), $('#c6')],
-		d: [$('#d1'), $('#d2'), $('#d3'), $('#d4'), $('#d5'), $('#d6')],
-		e: [$('#e1'), $('#e2'), $('#e3'), $('#e4'), $('#e5'), $('#e6')],
-		f: [$('#f1'), $('#f2'), $('#f3'), $('#f4'), $('#f5'), $('#f6')],
-		g: [$('#g1'), $('#g2'), $('#g3'), $('#g4'), $('#g5'), $('#g6')]
-	},
-	
+		"1 a": [$('#11'), $('#12'), $('#13'), $('#14'), $('#15'), $('#16')],
+		"2 b": [$('#21'), $('#22'), $('#23'), $('#24'), $('#25'), $('#26')],
+		"3 c": [$('#31'), $('#32'), $('#33'), $('#34'), $('#35'), $('#36')],
+		"4 d": [$('#41'), $('#42'), $('#43'), $('#44'), $('#45'), $('#46')],
+		"5 e": [$('#51'), $('#52'), $('#53'), $('#54'), $('#55'), $('#56')],
+		"6 f": [$('#61'), $('#62'), $('#63'), $('#64'), $('#65'), $('#66')],
+		"7 g": [$('#71'), $('#72'), $('#73'), $('#74'), $('#75'), $('#76')]
+	},	
+	allDivs: 
+	[
+		$('#11'), $('#12'), $('#13'), $('#14'), $('#15'), $('#16'), 
+		$('#21'), $('#22'), $('#23'), $('#24'), $('#25'), $('#26'), 
+		$('#31'), $('#32'), $('#33'), $('#34'), $('#35'), $('#36'), 
+		$('#41'), $('#42'), $('#43'), $('#44'), $('#45'), $('#46'), 
+		$('#51'), $('#52'), $('#53'), $('#54'), $('#55'), $('#56'), 
+		$('#61'), $('#62'), $('#63'), $('#64'), $('#65'), $('#66'), 
+		$('#71'), $('#72'), $('#73'), $('#74'), $('#75'), $('#76')
+	],
 
 	startPlayers() {
 	//set player names and tile colors
@@ -37,7 +46,7 @@ const game = {
 	},
 
 	findEmptySpaces(columnClicked) {
-		// console.log(columnClicked);
+		console.log(columnClicked);
 		for( let i = 0; i < this.columns[columnClicked].length; i++) {
 			// find the first one that doesn't have data "black"
 			if( this.columns[columnClicked][i].attr("data") === "black") {
@@ -74,9 +83,8 @@ const game = {
 		$(`#${emptySpaceName}`).css("background-color", `${color}`);
 		//reset data key value to player 1's color
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
-		// console.log();
 		this.turnsTaken++;
-		this.createPlayerOneCoord();
+		this.checkVertical();
 	},
 
 	playerTwoTurn(emptySpace) {
@@ -89,65 +97,76 @@ const game = {
 		//reset data key value to player 1's color
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
-		this.createPlayerTwoCoord();
+		this.checkVertical();
 	},
 
-	createPlayerOneCoord() {
-		const arrayToCheck = [];
-		//for every array in the object
-		for( let key in this.columns) {
-			// for every item in each array
-			for( let i = 0; i < this.columns[key].length; i++) {
-				if( this.columns[key][i].attr("data") === this.player1.tileColor) {
-					// console.log(this.columns[key][i]);
-					arrayToCheck.push(this.columns[key][i])
+	checkVertical() {
+		// starting from the 4th item in the array of divs,
+		for( let i = 3; i < this.allDivs.length - 3; i++) {
+			// check any 4 consecutive divs
+			let tempArray = [];
+			//fist, make sure the first two are in the same column
+			//if they are, push them into tempArray
+			if( $(this.allDivs[i-3]).attr("class") === $(this.allDivs[i-2]).attr("class")) {
+				tempArray.push($(this.allDivs[i-3]).attr("data"));	
+				tempArray.push($(this.allDivs[i-2]).attr("data"));
+
+				//if they are, also check if the i-2th and i-1th are in the same column
+				if( $(this.allDivs[i-2]).attr("class") === $(this.allDivs[i-1]).attr("class")) {
+					//if they are, push the i-1th one
+					tempArray.push($(this.allDivs[i-1]).attr("data"));
+					//if they are, also check if the i-1th and ith are in the same column
+					if( $(this.allDivs[i-1]).attr("class") === $(this.allDivs[i]).attr("class")) {
+						tempArray.push($(this.allDivs[i]).attr("data"));
+					}
+					//if the i-1th and ith don't match, clear the array and add one to i
+					else {
+						tempArray = [];
+						continue;
+					}
+				} 
+				//if the i-2th and i-1th don't match, clear the array and add 1 to i
+				else {
+					tempArray = [];
+					continue;
+				}
+			} 
+			//if the i-3th and i-2th don't match, clear array and add 1 to i
+			else {
+				tempArray = []
+				continue;
+			}
+			
+			//if a group of 4 gets through ALL OF THAT, check the colors
+			console.log(tempArray);		
+				if( 
+					tempArray[0] === this.player1.tileColor &&
+					tempArray[1] === this.player1.tileColor &&
+					tempArray[2] === this.player1.tileColor && 
+					tempArray[3] === this.player1.tileColor 
+				) 
+				{
+					console.log("player1 won");
+					// this.playerWon(this.player1);
+					break;
+				}
+				else if (
+					tempArray[0] === this.player2.tileColor &&
+					tempArray[1] === this.player2.tileColor &&
+					tempArray[2] === this.player2.tileColor && 
+					tempArray[3] === this.player2.tileColor 
+				)
+				{
+					console.log("player2 won");
+					// this.playerWon(this.player2);
+					break;
 				}
 
-			}
-
-		}
-		// console.log(arrayToCheck);
-//------------------------------------------------------------
-		//in order to check rows and columns, split div id strings into array of strings, one string being a letter for the column, the other string being a number for the row
-		this.player1.coord = [];
-		for( let i = 0; i < arrayToCheck.length; i++) {
-			this.player1.coord.push($(arrayToCheck[i]).attr("id").split(""));
-		}
-		// console.log(this.player1.coord);
-		if( this.player1.coord.length >= 4) {
-			this.player1.checkVertical(this.player1.coord);
-			// this.player1.checkHorizontal(this.player1.coord);
-			// this.player1.checkDiagonalUp(this.player1.coord);
-			// this.player1.checkDiagonalDown(this.player1.coord);
-		}
-	},
-
-	createPlayerTwoCoord() { //identical to createPlayerOneCoord()
-		const arrayToCheck = [];
-		for( let key in this.columns) {
-			for( let i = 0; i < this.columns[key].length; i++) {
-				if( this.columns[key][i].attr("data") === this.player2.tileColor) {
-					arrayToCheck.push(this.columns[key][i])
-				}
-
-			}
-
-		}
-		// console.log(arrayToCheck);
-
-		this.player2.coord = [];
-		for( let i = 0; i < arrayToCheck.length; i++) {
-			this.player2.coord.push($(arrayToCheck[i]).attr("id").split(""));
-		}
-		// console.log(this.player2.coord);
-		if( this.player2.coord.length >= 4) {
-			this.player2.checkVertical(this.player2.coord);
-			// this.player2.checkHorizontal(this.player2.coord);
-			// this.player2.checkDiagonalUp(this.player2.coord);
-			// this.player2.checkDiagonalDown(this.player2.coord);
 		}
 
-	},
+	}
+
+	
 
 }
 

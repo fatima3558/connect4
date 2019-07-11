@@ -87,6 +87,7 @@ const game = {
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
 		this.checkVertical();
+
 	},
 
 	playerTwoTurn(emptySpace) {
@@ -402,6 +403,14 @@ const game = {
 			$(".first").css("border", "none");
 			$(".second").css("border", `10px solid ${this.player2.tileColor}`);
 		}
+	},
+
+	takeAChance(player) {
+		player.chanceTaken = true;
+		console.log("chanceTaken is now true");
+		// $("#spinner").animate(
+
+		// 	)
 	}
 
 }
@@ -418,6 +427,20 @@ $(".game").on("click", (e) => {
 		game.findEmptySpaces(columnClicked);
 	}
 
+});
+
+$(".first button").on("click", (e) => {
+	console.log("player 1 clicked button");
+	if(game.player1.chanceTaken === false) {
+		game.takeAChance(game.player1);
+	};
+})
+
+$(".second button").on("click", (e) => {
+	console.log("player 2 clicked button");
+	if(game.player2.chanceTaken === false){
+		game.takeAChance(game.player2);
+	};
 })
 
 

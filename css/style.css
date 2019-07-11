@@ -82,7 +82,11 @@ h3, h4 {
 	height: 66vh;
 	width: 66vh;
 	border-radius: 100%;
-	background-color: white;
+	background: conic-gradient(
+		darkgrey 90deg, 
+		white 90deg 180deg, 
+		darkgrey 180deg 270deg, 
+		white 270deg 360deg);
 	margin: 25px auto;
 	z-index: 2;
 }

@@ -45,6 +45,9 @@ const game = {
 		name2.tileColor = playerTwoColor.toLowerCase();
 		$(".color2").css("background-color", name2.tileColor);
 		// console.log(name2);
+
+	//hide spinner for now
+		$("#spinner").hide();
 	},
 
 	findEmptySpaces(columnClicked) {
@@ -407,10 +410,14 @@ const game = {
 
 	takeAChance(player) {
 		player.chanceTaken = true;
+		$("#spinner").show();
+		$(".game").hide();
 		console.log("chanceTaken is now true");
-		// $("#spinner").animate(
-
-		// 	)
+		$("#spinner").animate({
+			
+			}, {
+			duration: 5000,
+			})
 	}
 
 }
@@ -430,14 +437,14 @@ $(".game").on("click", (e) => {
 });
 
 $(".first button").on("click", (e) => {
-	console.log("player 1 clicked button");
+	// console.log("player 1 clicked button");
 	if(game.player1.chanceTaken === false) {
 		game.takeAChance(game.player1);
 	};
 })
 
 $(".second button").on("click", (e) => {
-	console.log("player 2 clicked button");
+	// console.log("player 2 clicked button");
 	if(game.player2.chanceTaken === false){
 		game.takeAChance(game.player2);
 	};

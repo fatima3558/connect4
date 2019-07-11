@@ -32,7 +32,7 @@ const game = {
 		this.player1 = name1;
 		name1.name = prompt("Player 1, what's your name?")
 		$(".first h4").text(name1.name);
-		playerOneColor = prompt("Player 1, pick a color! \rYour options include: red, yellow, blue, purple, or white.");
+		playerOneColor = prompt("Player 1, pick a color! \rYour options include: red, yellow, blue, brown, or white.");
 		name1.tileColor = playerOneColor.toLowerCase();
 		$(".color1").css("background-color", name1.tileColor);
 		// console.log(name1);
@@ -386,7 +386,7 @@ const game = {
 			$("#announcement").text(`${this.player1.name} Won!`);
 			$("#announcement").css({
 				"color": `${this.player1.tileColor}`,
-				"font-size": "20px"
+				"font-size": "36px"
 			});
 			$("h1").css("color", `${this.player1.tileColor}`);
 			$(".second").css("border", "none");
@@ -396,7 +396,7 @@ const game = {
 			$("#announcement").text(`${this.player2.name} Won!`);
 			$("#announcement").css({
 				"color": `${this.player2.tileColor}`,
-				"font-size": "20px"
+				"font-size": "36px"
 			});
 			$("h1").css("color", `${this.player1.tileColor}`);
 			$(".first").css("border", "none");

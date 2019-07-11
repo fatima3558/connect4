@@ -8,11 +8,20 @@ div {
 }
 
 h1 {
-	font-family: "Monaco", monospace;
+	font-family: "Righteous", cursive;
+	font-size: 40px;
+	border-bottom: 5px dotted;
+	margin-bottom: 5px;
+}
+
+h3 {
+	margin: 5px auto;
+
 }
 
 h3, h4 {
-	font-family: "Helvetica", sans-serif;
+	font-family: "Lato", "Helvetica", sans-serif;
+	font-size: 24px;
 }
 
 .container {
@@ -51,16 +60,48 @@ h3, h4 {
 	background-color: black;
 }
 
-.game {
+.spinner, .game {
 	grid-area: "game";
-	height: 60vh;
-	width: 70vh;
+	height: 66vh;
+	width: 77vh;
 	text-align: center;
-	margin: 20px auto;
-	border: 5px solid white;
+	
+}
+
+.spinner {
+	background-color: black;
+	border: 20px solid orange;
+	text-align: center;
+	z-index: 1;
+}
+
+#spinner {
+	display: inline-grid;
+	grid-template-rows: repeat(2, 1fr);
+	grid-template-columns: repeat(2, 1fr);
+	height: 66vh;
+	width: 66vh;
+	border-radius: 100%;
+	background-color: white;
+	margin: 25px auto;
+	z-index: 2;
+}
+
+#spinner h5 {
+	color: black;
+	font-family: "Lato", "Helvetica", sans-serif;
+	font-size: 20px;
+	margin: auto;
+
+}
+
+.game {
+	border: 10px solid white;
 	display: inline-grid;
 	grid-template-rows: repeat(6, 1fr);
 	grid-template-columns: repeat(7, 1fr);
+	border-radius: 5px;
+	z-index: 5;
 }
 
 .space {

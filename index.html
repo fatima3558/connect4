@@ -2,9 +2,12 @@
 <html>
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Lato:700|Righteous&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-	<title></title>
+
+	<title>Connect 4!</title>
 </head>
 <body>
 	
@@ -14,13 +17,15 @@
 	</div>
 
 	<div class="container">	
+
 		<div class="first player">
 			<h4>Player 1</h4>
 			<div class="color1"></div>
 			<button>Take a Chance!</button>
 		</div>
 
-		<div class="spinner-area">
+		<div class="game-area">
+
 			<div class="game">
 					<div class="space">
 						<div class="1 a" id="16" data="black"></div>
@@ -156,18 +161,26 @@
 			</div>	
 
 			<div id="spinner">
+				
 				<h5 id="top-switch">Switch!</h5>
 				<h5 id="top-not">No Switch</h5>
-				<h5 id="bottom-switch">Switch!</h5>
+				<img src="images/arrow.png" alt="spinner arrow"/>
 				<h5 id="bottom-not">No Switch</h5>
+				<h5 id="bottom-switch">Switch!</h5>
+				
 			</div>
+
 		</div>
+
 		<div class="second player">
 			<h4>Player 2</h4>
 			<div class="color2"></div>
 			<button>Take a Chance!</button>
 		</div>
+
 	<script type="text/javascript" src="js/Player.js"></script>
+
 	<script type="text/javascript" src="js/app.js"></script>
+
 </body>
 </html>

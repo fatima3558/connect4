@@ -3,6 +3,8 @@ console.log("connect 4");
 const game = {
 	player1: null,
 	player2: null,
+	player1Won: false,
+	player2Won: false,
 	turnsTaken: 0,
 	columns: {
 		"1 a": [$('#11'), $('#12'), $('#13'), $('#14'), $('#15'), $('#16')],
@@ -46,7 +48,7 @@ const game = {
 	},
 
 	findEmptySpaces(columnClicked) {
-		console.log(columnClicked);
+		// console.log(columnClicked);
 		for( let i = 0; i < this.columns[columnClicked].length; i++) {
 			// find the first one that doesn't have data "black"
 			if( this.columns[columnClicked][i].attr("data") === "black") {
@@ -85,9 +87,6 @@ const game = {
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
 		this.checkVertical();
-		this.checkHorizontal();
-		this.checkDiagonalUp();
-		this.checkDiagonalDown();
 	},
 
 	playerTwoTurn(emptySpace) {
@@ -101,11 +100,8 @@ const game = {
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
 		this.checkVertical();
-		this.checkHorizontal();
-		this.checkDiagonalUp();
-		this.checkDiagonalDown();
 	},
-// -----------------------------THIS WORKS!---------------------------------
+// -----------------------THIS WORKS!-------------------------
 	checkVertical() {
 		// starting from the 4th item in the array of divs,
 		for( let i = 3; i < this.allDivs.length - 3; i++) {
@@ -124,7 +120,6 @@ const game = {
 					//if they are, also check if the i-1th and ith are in the same column
 					if( $(this.allDivs[i-1]).attr("class") === $(this.allDivs[i]).attr("class")) {
 						tempArray.push($(this.allDivs[i]).attr("data"));
-						// console.log(tempArray);
 					}
 					//if the i-1th and ith don't match, clear the array and add one to i
 					else {
@@ -143,30 +138,92 @@ const game = {
 				tempArray = []
 				continue;
 			}
-			this.checkTempArray(tempArray);
+			//if a group of 4 gets through ALL OF THAT, check the colors
+			// console.log(tempArray);		
+				if( 
+					tempArray[0] === this.player1.tileColor &&
+					tempArray[1] === this.player1.tileColor &&
+					tempArray[2] === this.player1.tileColor && 
+					tempArray[3] === this.player1.tileColor 
+				) {
+					console.log("player1 won");
+					this.player1Won = true;
+					// this.playerWon(this.player1);
+					break;
+				}
+				else if (
+					tempArray[0] === this.player2.tileColor &&
+					tempArray[1] === this.player2.tileColor &&
+					tempArray[2] === this.player2.tileColor && 
+					tempArray[3] === this.player2.tileColor 
+				) {
+					console.log("player2 won");
+					this.player2Won = true;
+					// this.playerWon(this.player2);
+					break;
+				}
 
 		}
-
+		if( this.player1Won === false && this.player2Won === false) {
+			this.checkHorizontal();
+		}
+		else {
+			this.declareWin();
+		}
 	},
-// --------------------------------THIS WORKS!-------------------------------------
+		
+// ------------------------THIS WORKS!--------------------------
 	checkHorizontal() {
-		for( let i = 0; i < 24; i++) {
+		for( let i = 0; i < this.allDivs.length; i++) {
 			//create a temp array to hold 4 divs from allDivs that are 6 divs apart
 			let tempArray = [];
 			tempArray.push($(this.allDivs[i]).attr("data"));
 			tempArray.push($(this.allDivs[i+6]).attr("data"));
 			tempArray.push($(this.allDivs[i+12]).attr("data"));
 			tempArray.push($(this.allDivs[i+18]).attr("data"));
+			// console.log("checkHorizontal is working");
 
 			// console.log(tempArray);
-			this.checkTempArray(tempArray);
+
+			//check tempArray through this.checkColors()
+
+			if( 
+					tempArray[0] === this.player1.tileColor &&
+					tempArray[1] === this.player1.tileColor &&
+					tempArray[2] === this.player1.tileColor && 
+					tempArray[3] === this.player1.tileColor 
+				) {
+					console.log("player1 won");
+					this.player1Won = true;
+					break;
+				}
+			else if (
+					tempArray[0] === this.player2.tileColor &&
+					tempArray[1] === this.player2.tileColor &&
+					tempArray[2] === this.player2.tileColor && 
+					tempArray[3] === this.player2.tileColor 
+				) {
+					console.log("player2 won");
+					this.player2Won = true;
+					break;
+				}
+
+			else {
+				tempArray = [];
+				continue;
+			}
+		}
+		if( this.player1Won === false && this.player2Won === false) {
+			this.checkDiagonalUp();
+		}
+		else {
+			this.declareWin();
 		}
 
-
 	},
-// ---------------------------------THIS WORKS!--------------------------------
+// ---------------------------THIS WORKS!--------------------------
 	checkDiagonalUp() {
-		for( let i = 3; i < 24; i++) {
+		for( let i = 0; i < this.allDivs.length; i++) {
 			// create a temp array to hold 4 divs from allDivs that are 7 divs apart
 			let tempArray = [];
 
@@ -174,18 +231,18 @@ const game = {
 
 			// if 11 plus the numerical value of the id equals the numerical value of the div seven divs away, push both into tempArray
 			if( parseInt($(this.allDivs[i]).attr("id")) + 11 === parseInt($(this.allDivs[i+7]).attr("id")) ) {
-				console.log("first two are being pushed");
+				// console.log("first two are being pushed");
 				tempArray.push($(this.allDivs[i]).attr("data"));
 				tempArray.push($(this.allDivs[i+7]).attr("data"));
 
 				// if i and i+7 are in consecutive columns (numerical value of ids have a difference of 11), check i+7 and i+14 for the same
 				if( parseInt($(this.allDivs[i+7]).attr("id")) + 11 === parseInt($(this.allDivs[i+14]).attr("id")) ) {
-					console.log("the third is being pushed");
+					// console.log("the third is being pushed");
 					tempArray.push($(this.allDivs[i+14]).attr("data"));
 
 					//if i+7 and i+14 are in consecutive columns, check i+14 and i+21
 					if( parseInt($(this.allDivs[i+14]).attr("id")) + 11 === parseInt($(this.allDivs[i+21]).attr("id")) ) {
-						console.log("the fourth is being pushed");
+						// console.log("the fourth is being pushed");
 						tempArray.push($(this.allDivs[i+21]).attr("data"));
 						// console.log(tempArray);
 					}
@@ -210,31 +267,61 @@ const game = {
 				tempArray = [];
 				continue;
 			}
-			this.checkTempArray(tempArray);
+
+			if( 
+					tempArray[0] === this.player1.tileColor &&
+					tempArray[1] === this.player1.tileColor &&
+					tempArray[2] === this.player1.tileColor && 
+					tempArray[3] === this.player1.tileColor 
+				) {
+					console.log("player1 won");
+					this.player1Won = true;
+					break;
+				}
+			else if (
+					tempArray[0] === this.player2.tileColor &&
+					tempArray[1] === this.player2.tileColor &&
+					tempArray[2] === this.player2.tileColor && 
+					tempArray[3] === this.player2.tileColor 
+				) {
+					console.log("player2 won");
+					this.player2Won = true;
+					break;
+				}
+
+			else {
+				tempArray = [];
+				continue;
+			}
 
 		}
-
+		if( this.player1Won === false && this.player2Won === false) {
+			this.checkDiagonalDown();
+		}
+		else {
+			this.declareWin();
+		}
 	},
-//---------------------------------THIS WORKS!----------------------------------------
+//-----------------------------THIS WORKS!--------------------------
 	checkDiagonalDown() {
-		for( let i = 3; i < 24; i++) {
+		for( let i = 0; i < this.allDivs.length; i++) {
 			// create a temp array to hold 4 divs from allDivs that are 5 divs apart
 			let tempArray = [];
 
 			// if 9 plus the numerical value of the id equals the numerical value of the div seven divs away, push both into tempArray
 			if( parseInt($(this.allDivs[i]).attr("id")) + 9 === parseInt($(this.allDivs[i+5]).attr("id")) ) {
-				console.log("first two are being pushed");
+				// console.log("first two are being pushed");
 				tempArray.push($(this.allDivs[i]).attr("data"));
 				tempArray.push($(this.allDivs[i+5]).attr("data"));
 
 				// if i and i+5 are in consecutive columns (numerical value of ids have a difference of 9), check i+5 and i+10 for the same
 				if( parseInt($(this.allDivs[i+5]).attr("id")) + 9 === parseInt($(this.allDivs[i+10]).attr("id")) ) {
-					console.log("the third is being pushed");
+					// console.log("the third is being pushed");
 					tempArray.push($(this.allDivs[i+10]).attr("data"));
 
 					//if i+5 and i+10 are in consecutive columns, check i+10 and i+15
 					if( parseInt($(this.allDivs[i+10]).attr("id")) + 9 === parseInt($(this.allDivs[i+15]).attr("id")) ) {
-						console.log("the fourth is being pushed");
+						// console.log("the fourth is being pushed");
 						tempArray.push($(this.allDivs[i+15]).attr("data"));
 						// console.log(tempArray);
 					}
@@ -259,41 +346,63 @@ const game = {
 				tempArray = [];
 				continue;
 			}
-			this.checkTempArray(tempArray);
+
+			if( 
+					tempArray[0] === this.player1.tileColor &&
+					tempArray[1] === this.player1.tileColor &&
+					tempArray[2] === this.player1.tileColor && 
+					tempArray[3] === this.player1.tileColor 
+				) {
+					console.log("player1 won");
+					this.player1Won = true;
+					break;
+				}
+			else if (
+					tempArray[0] === this.player2.tileColor &&
+					tempArray[1] === this.player2.tileColor &&
+					tempArray[2] === this.player2.tileColor && 
+					tempArray[3] === this.player2.tileColor 
+				) {
+					console.log("player2 won");
+					this.player2Won = true;
+					break;
+				}
+
+			else {
+				tempArray = [];
+				continue;
+			}
 
 		}
-
+		if( this.player1Won === true || this.player2Won === true) {
+			this.declareWin();
+		}
 
 	},
 
-	checkTempArray(tempArray) {
-		if( 
-		tempArray[0] === this.player1.tileColor &&
-		tempArray[1] === this.player1.tileColor &&
-		tempArray[2] === this.player1.tileColor && 
-		tempArray[3] === this.player1.tileColor 
-		) {
-			console.log("player1 won");
-			// this.playerWon(this.player1);
-			break;
+	declareWin() {
+		$(".game").off("click");
+		if( this.player1Won === true) {
+			$("#announcement").text(`${this.player1.name} Won!`);
+			$("#announcement").css({
+				"color": `${this.player1.tileColor}`,
+				"font-size": "20px"
+			});
+			$("h1").css("color", `${this.player1.tileColor}`);
+			$(".second").css("border", "none");
+			$(".first").css("border", `10px solid ${this.player1.tileColor}`)
 		}
-		else if (
-			tempArray[0] === this.player2.tileColor &&
-			tempArray[1] === this.player2.tileColor &&
-			tempArray[2] === this.player2.tileColor && 
-			tempArray[3] === this.player2.tileColor 
-		) {
-			console.log("player2 won");
-			// this.playerWon(this.player2);
-			break;
+		else if( this.player2Won === true) {
+			$("#announcement").text(`${this.player2.name} Won!`);
+			$("#announcement").css({
+				"color": `${this.player2.tileColor}`,
+				"font-size": "20px"
+			});
+			$("h1").css("color", `${this.player1.tileColor}`);
+			$(".first").css("border", "none");
+			$(".second").css("border", `10px solid ${this.player2.tileColor}`);
 		}
-
-		else {
-			tempArray = [];
-			continue;
-		}
-
-	},
+	}
 
 }
 
@@ -301,7 +410,7 @@ game.startPlayers();
 
 
 //Event listeners
-$(".game").on('click', (e) => {
+$(".game").on("click", (e) => {
 	// console.log($(e.target).hasClass('space'));// -- only do thebelow if e.target does NOT have class space
 	if( $(e.target).hasClass("space") === false) {
 		// console.log("this shouldn't happen if you click the white");

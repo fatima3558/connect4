@@ -87,7 +87,7 @@ h3, h4 {
 		white 90deg 180deg, 
 		darkgrey 180deg 270deg, 
 		white 270deg 360deg);
-	margin: 25px auto;
+	margin: 25px auto 0 auto;
 	z-index: 2;
 }
 
@@ -97,13 +97,20 @@ h3, h4 {
 	font-size: 20px;
 	margin: auto;
 	text-align: center;
+}
 
+#arrow-div {
+	border: 1px solid red;
+	height: 66vh;
+	width: 66vh;
+	margin: -66vh auto 0 auto;
+	z-index: 10;
 }
 
 img {
 	border: 1px solid red;
 	max-width: 250px;	
-	position: absolute;
+	position: relative;
 	margin: 50%;
 	
 }

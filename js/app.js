@@ -48,6 +48,7 @@ const game = {
 
 	//hide spinner for now
 		$("#spinner").hide();
+		$("#arrow-div").hide();
 	},
 
 	findEmptySpaces(columnClicked) {
@@ -409,16 +410,18 @@ const game = {
 	},
 
 	takeAChance(player) {
+		console.log(player.tileColor);
 		player.chanceTaken = true;
 		$("#spinner").show();
+		$("#arrow-div").show();
 		$(".game").hide();
 		console.log("chanceTaken is now true");
-		$("#spinner").animate({
-			
-			}, {
-			duration: 5000,
-			})
-	}
+
+		$("#arrow").animate({
+			//put things here
+			}, 1000);
+
+	},
 
 }
 

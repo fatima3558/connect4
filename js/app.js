@@ -85,9 +85,9 @@ const game = {
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
 		// this.checkVertical();
-		this.checkHorizontal();
+		// this.checkHorizontal();
 		// this.checkDiagonalUp();
-		// this.checkDiagonalDown();
+		this.checkDiagonalDown();
 	},
 
 	playerTwoTurn(emptySpace) {
@@ -101,11 +101,11 @@ const game = {
 		$(`#${emptySpaceName}`).attr("data", `${color}`);
 		this.turnsTaken++;
 		// this.checkVertical();
-		this.checkHorizontal();
+		// this.checkHorizontal();
 		// this.checkDiagonalUp();
-		// this.checkDiagonalDown();
+		this.checkDiagonalDown();
 	},
-
+//-----------------------------THIS WORKS!---------------------------------
 	// checkVertical() {
 	// 	// starting from the 4th item in the array of divs,
 	// 	for( let i = 3; i < this.allDivs.length - 3; i++) {
@@ -169,17 +169,168 @@ const game = {
 	// 	}
 
 	// },
+//--------------------------------THIS WORKS!-------------------------------------
+	// checkHorizontal() {
+	// 	for( let i = 0; i < 24; i++) {
+	// 		//create a temp array to hold 4 divs from allDivs that are 6 divs apart
+	// 		let tempArray = [];
+	// 		tempArray.push($(this.allDivs[i]).attr("data"));
+	// 		tempArray.push($(this.allDivs[i+6]).attr("data"));
+	// 		tempArray.push($(this.allDivs[i+12]).attr("data"));
+	// 		tempArray.push($(this.allDivs[i+18]).attr("data"));
 
-	checkHorizontal() {
-		for( let i = 0; i < 24; i++) {
-			//create a temp array to hold 4 divs from allDivs that are 6 divs apart
+	// 		console.log(tempArray);
+
+	// 		//check tempArray through this.checkColors()
+
+	// 		if( 
+	// 				tempArray[0] === this.player1.tileColor &&
+	// 				tempArray[1] === this.player1.tileColor &&
+	// 				tempArray[2] === this.player1.tileColor && 
+	// 				tempArray[3] === this.player1.tileColor 
+	// 			) {
+	// 				console.log("player1 won");
+	// 				// this.playerWon(this.player1);
+	// 				break;
+	// 			}
+	// 		else if (
+	// 				tempArray[0] === this.player2.tileColor &&
+	// 				tempArray[1] === this.player2.tileColor &&
+	// 				tempArray[2] === this.player2.tileColor && 
+	// 				tempArray[3] === this.player2.tileColor 
+	// 			) {
+	// 				console.log("player2 won");
+	// 				// this.playerWon(this.player2);
+	// 				break;
+	// 			}
+
+	// 		else {
+	// 			tempArray = [];
+	// 			continue;
+	// 		}
+	// 	}
+
+	// },
+//---------------------------------THIS WORKS!--------------------------------
+	// checkDiagonalUp() {
+	// 	for( let i = 3; i < 24; i++) {
+	// 		// create a temp array to hold 4 divs from allDivs that are 7 divs apart
+	// 		let tempArray = [];
+
+	// 		// console.log(parseInt($(this.allDivs[0]).attr("id")));
+
+	// 		// if 11 plus the numerical value of the id equals the numerical value of the div seven divs away, push both into tempArray
+	// 		if( parseInt($(this.allDivs[i]).attr("id")) + 11 === parseInt($(this.allDivs[i+7]).attr("id")) ) {
+	// 			console.log("first two are being pushed");
+	// 			tempArray.push($(this.allDivs[i]).attr("data"));
+	// 			tempArray.push($(this.allDivs[i+7]).attr("data"));
+
+	// 			// if i and i+7 are in consecutive columns (numerical value of ids have a difference of 11), check i+7 and i+14 for the same
+	// 			if( parseInt($(this.allDivs[i+7]).attr("id")) + 11 === parseInt($(this.allDivs[i+14]).attr("id")) ) {
+	// 				console.log("the third is being pushed");
+	// 				tempArray.push($(this.allDivs[i+14]).attr("data"));
+
+	// 				//if i+7 and i+14 are in consecutive columns, check i+14 and i+21
+	// 				if( parseInt($(this.allDivs[i+14]).attr("id")) + 11 === parseInt($(this.allDivs[i+21]).attr("id")) ) {
+	// 					console.log("the fourth is being pushed");
+	// 					tempArray.push($(this.allDivs[i+21]).attr("data"));
+	// 					console.log(tempArray);
+	// 				}
+
+	// 				else {
+	// 					tempArray = [];
+	// 					continue;
+	// 				}
+
+	// 			}
+
+	// 			//if i+7 and i+14 are not in consecutive columns, ignore and continue loop
+	// 			else {
+	// 				tempArray = [];
+	// 				continue;
+	// 			}
+
+	// 		}
+
+	// 		// if i and i+7 are not in consecutive columns, ignore and keep going with loop
+	// 		else {
+	// 			tempArray = [];
+	// 			continue;
+	// 		}
+
+	// 		if( 
+	// 				tempArray[0] === this.player1.tileColor &&
+	// 				tempArray[1] === this.player1.tileColor &&
+	// 				tempArray[2] === this.player1.tileColor && 
+	// 				tempArray[3] === this.player1.tileColor 
+	// 			) {
+	// 				console.log("player1 won");
+	// 				// this.playerWon(this.player1);
+	// 				break;
+	// 			}
+	// 		else if (
+	// 				tempArray[0] === this.player2.tileColor &&
+	// 				tempArray[1] === this.player2.tileColor &&
+	// 				tempArray[2] === this.player2.tileColor && 
+	// 				tempArray[3] === this.player2.tileColor 
+	// 			) {
+	// 				console.log("player2 won");
+	// 				// this.playerWon(this.player2);
+	// 				break;
+	// 			}
+
+	// 		else {
+	// 			tempArray = [];
+	// 			continue;
+	// 		}
+
+	// 	}
+
+	// },
+
+		checkDiagonalDown() {
+		for( let i = 3; i < 24; i++) {
+			// create a temp array to hold 4 divs from allDivs that are 5 divs apart
 			let tempArray = [];
-			tempArray.push($(this.allDivs[i]).attr("data"));
-			tempArray.push($(this.allDivs[i+6]).attr("data"));
-			tempArray.push($(this.allDivs[i+12]).attr("data"));
-			tempArray.push($(this.allDivs[i+18]).attr("data"));
 
-			console.log(tempArray);
+			// if 9 plus the numerical value of the id equals the numerical value of the div seven divs away, push both into tempArray
+			if( parseInt($(this.allDivs[i]).attr("id")) + 9 === parseInt($(this.allDivs[i+5]).attr("id")) ) {
+				console.log("first two are being pushed");
+				tempArray.push($(this.allDivs[i]).attr("data"));
+				tempArray.push($(this.allDivs[i+5]).attr("data"));
+
+				// if i and i+5 are in consecutive columns (numerical value of ids have a difference of 9), check i+5 and i+10 for the same
+				if( parseInt($(this.allDivs[i+5]).attr("id")) + 9 === parseInt($(this.allDivs[i+10]).attr("id")) ) {
+					console.log("the third is being pushed");
+					tempArray.push($(this.allDivs[i+10]).attr("data"));
+
+					//if i+5 and i+10 are in consecutive columns, check i+10 and i+15
+					if( parseInt($(this.allDivs[i+10]).attr("id")) + 9 === parseInt($(this.allDivs[i+15]).attr("id")) ) {
+						console.log("the fourth is being pushed");
+						tempArray.push($(this.allDivs[i+15]).attr("data"));
+						console.log(tempArray);
+					}
+
+					else {
+						tempArray = [];
+						continue;
+					}
+
+				}
+
+				//if i+7 and i+14 are not in consecutive columns, ignore and continue loop
+				else {
+					tempArray = [];
+					continue;
+				}
+
+			}
+
+			// if i and i+7 are not in consecutive columns, ignore and keep going with loop
+			else {
+				tempArray = [];
+				continue;
+			}
 
 			if( 
 					tempArray[0] === this.player1.tileColor &&
@@ -206,9 +357,10 @@ const game = {
 				tempArray = [];
 				continue;
 			}
+
 		}
 
-	}
+	},
 
 }
 

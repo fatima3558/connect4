@@ -403,7 +403,7 @@ const game = {
 				"color": `${this.player2.tileColor}`,
 				"font-size": "36px"
 			});
-			$("h1").css("color", `${this.player1.tileColor}`);
+			$("h1").css("color", `${this.player2.tileColor}`);
 			$(".first").css("border", "none");
 			$(".second").css("border", `10px solid ${this.player2.tileColor}`);
 		}

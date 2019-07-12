@@ -416,12 +416,14 @@ const game = {
 		$("#arrow-div").show();
 		$(".game").hide();
 		console.log("chanceTaken is now true");
-
-		$("#arrow").animate({
-			//put things here
-			}, 1000);
-
 	},
+
+	pauseArrow() {
+		console.log("tried to stop arrow");
+		$("#arrow").css({
+			"animation-play-state": "paused",
+		});
+	}
 
 }
 
@@ -451,6 +453,11 @@ $(".second button").on("click", (e) => {
 	if(game.player2.chanceTaken === false){
 		game.takeAChance(game.player2);
 	};
+})
+
+$("#arrow-stopper").on("click", (e) => {
+	console.log("click");
+	game.pauseArrow();
 })
 
 

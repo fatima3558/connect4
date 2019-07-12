@@ -100,19 +100,11 @@ h3, h4 {
 }
 
 #arrow-div {
-	border: 1px solid red;
 	height: 66vh;
 	width: 66vh;
 	margin: -66vh auto 0 auto;
 	z-index: 10;
-}
-
-img {
-	border: 1px solid red;
-	max-width: 250px;	
-	position: relative;
-	margin: 50%;
-	
+	transform: rotateY(180deg);
 }
 
 .game {
@@ -136,11 +128,24 @@ img {
 	background-color: black;
 }
 
+@keyframes spin {
+	0%		{transform: rotateZ(45deg);}
+	25%		{transform: rotateZ(135deg);}
+	50% 	{transform: rotateZ(225deg);}
+	75%		{transform: rotateZ(315deg);}
+	100%	{transform: rotateZ(405deg);}
+}
 
-
-
-
-
+img {
+	max-width: 250px;	
+	position: relative;
+	margin-top: calc(50% - 63px);
+	margin-right: auto;
+	animation: spin;
+	animation-duration: .25s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
 
 
 
